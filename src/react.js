@@ -1,9 +1,22 @@
+
+// React create element and Render
 (() => {
     function div (el, children) {
-        const aDiv = document.createElement(el);
-        aDiv.innerHTML = children
-        return aDiv
+            if (typeof el === 'function') {
+                return el()
+            } else {
+            const anElement = document.createElement(el);
+            children.forEach(element => {
+                if (typeof element === 'object') {
+                    anElement.appendChild(element)
+                } else {
+                    anElement.innerHTML += element
+                }
+            })
+            return anElement
+        }
     }
+    
     function createElement (el, props, ...children ) {
         return div(el, children)
     }
@@ -17,3 +30,8 @@
         }
     };
 })();
+
+
+
+
+

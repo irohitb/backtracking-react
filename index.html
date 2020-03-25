@@ -8,8 +8,20 @@
 <script src="./src/react.js"></script>
 <div id="root"></div>
 <script>
-    const helloWorld = React.createElement('h1', null, `Rohit`);
-    ReactDOM.render(helloWorld, document.getElementById('root'));
+    const ReturnJustHello = () => {
+        return React.createElement('h2', null, 'hello')
+    }
+
+    const helloWorld = React.createElement(ReturnJustHello, null, null);
+    const helloWorld2 = React.createElement(ReturnJustHello, null, null);
+    const regularDiv = React.createElement('div', null, `regular div`)
+    const parent = React.createElement('div', null, 
+        helloWorld,
+        helloWorld2,
+        regularDiv, 
+        'I am just a text'
+    )
+    ReactDOM.render(parent, document.getElementById('root'));
 </script>
 </body>
 </html>
