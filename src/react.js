@@ -4,28 +4,30 @@
     function div (el, children) {
         // checking if element is class 
             if (isClass(el)) {
-                // initiate a class 
-                const component = new el()
-                return component.render()
+                return HandleClass(el)
             } 
             if (typeof el === 'function') {
                 return el()
             } else {
-            const anElement = document.createElement(el);
-            children.forEach(element => {
-                if (typeof element === 'object') {
-                    anElement.appendChild(element)
-                } else {
-                    anElement.innerHTML += element
-                }
-            })
-            return anElement
+                return handleElement(el, children)
         }
     }
 
-    function isClass (func) {
-        // /^class\s/ means we want to match non-whitespace at the beginning of string
-        return typeof func === 'function' && /^class\s/.test(Function.prototype.toString.call(func))
+    function handleElement (el, children) {
+        const anElement = document.createElement(el);
+        children.forEach(element => {
+            if (typeof element === 'object') {
+                anElement.appendChild(element)
+            } else {
+                anElement.innerHTML += element
+            }
+        })
+        return anElement
+    }
+
+    function HandleClass (classComponent) {
+        const component = new classComponent()
+        return component.render()
     }
     
     function createElement (el, props, ...children ) {
