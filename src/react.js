@@ -1,13 +1,13 @@
 
 // React create element and Render
 (() => {
-    function div (el, children) {
+    function div (el, props, children) {
         // checking if element is class 
             if (isClass(el)) {
-                return HandleClass(el)
+                return HandleClass(el, props)
             } 
             if (typeof el === 'function') {
-                return el()
+                return el(props)
             } else {
                 return handleElement(el, children)
         }
@@ -25,16 +25,23 @@
         return anElement
     }
 
-    function HandleClass (classComponent) {
-        const component = new classComponent()
+    function HandleClass (classComponent, props) {
+        const component = new classComponent(props)
         return component.render()
+    }
+
+    class Component {
+        constructor(props) {
+            this.props = props
+        }
     }
     
     function createElement (el, props, ...children ) {
-        return div(el, children)
+        return div(el,props,children)
     }
     window.React = {
-        createElement
+        createElement, 
+        Component
     }
     window.ReactDOM = {
         // ReactDOM.render takes two arguments, component to render and position of the component where it should be rendered
