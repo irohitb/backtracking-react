@@ -7,3 +7,7 @@
     function isStatelesssComponent (func) {
         return !isClass(func) && typeof func === 'function'
     }
+
+    function DoesHaveEventListener (attribute) {
+       return /^on/.test(attribute)
+    }

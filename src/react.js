@@ -15,24 +15,28 @@
 
     function handleElement (el, props, children) {
         const anElement = document.createElement(el);
-        children.forEach(element => {
-            if (typeof element === 'object') {
-                anElement.appendChild(element)
+        children.forEach(child => appendChild(anElement, child))
+        if (props) appendProp(anElement, props)
+        return anElement
+    }
+
+    function appendProp (element, props) {
+        Object.keys(props).forEach((propsElement) => {
+            if (DoesHaveEventListener(propsElement)) {
+                return element.addEventListener(propsElement.substring(2).toLowerCase(), 
+                props[propsElement])
             } else {
-                anElement.innerHTML += element
+                return element.setAttribute(propsElement, props[propsElement])
             }
         })
-        if (props) {
-            Object.keys(props).forEach((propsElement) => {
-                if (/^on/.test(propsElement)) {
-                    anElement.addEventListener(propsElement.substring(2).toLowerCase(), 
-                    props[propsElement])
-                } else {
-                    anElement.setAttribute(propsElement, props[propsElement])
-                }
-            })
+    }
+
+    function appendChild (element, child) {
+        if (typeof child === 'object') {
+           return element.appendChild(child)
+        } else {
+            return element.innerHTML += child
         }
-        return anElement
     }
 
     function HandleClass (classComponent, props) {
