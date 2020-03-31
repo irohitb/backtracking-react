@@ -1,6 +1,6 @@
 
     function isClass (func) {
-        // /^class\s/ means we want to match non-whitespace at the beginning of string
+        // /^class\s/ means  `class ` (with whitespace)
         return typeof func === 'function' && /^class\s/.test(Function.prototype.toString.call(func))
     }
 

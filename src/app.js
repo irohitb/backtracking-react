@@ -1,5 +1,5 @@
 const hello = ({name}) => {
-    return React.createElement('h2', null, `hello ${name}`)
+    return React.createElement('h2', null, `${name}`)
 }
 
 class Hello extends React.Component {
@@ -7,17 +7,18 @@ class Hello extends React.Component {
         super(props)
     }
     render () {
-        return React.createElement('div', null, `hello ${this.props.name}`)
+        return React.createElement('button', {onClick: this.props.onClick}, `${this.props.name}`)
     }
 }
 
-const helloWorld = React.createElement(Hello, {name: 'Rohit Class'}, null);
-const helloWorld2 = React.createElement(hello, {name: 'Rohit'}, null);
-const regularDiv = React.createElement('div', null, `regular div`)
+const helloWorld = React.createElement(Hello, {name: 'Rohit Class', onClick: () => alert('Attribute on click')}, null);
+const helloWorld2 = React.createElement(hello, {name: 'Rohit Function'}, null);
+
 const parent = React.createElement('div', null, 
     helloWorld,
-    helloWorld2,
-    regularDiv, 
-    'I am just a text'
+    helloWorld2
 )
 ReactDOM.render(parent, document.getElementById('root'));
+
+
+// 
