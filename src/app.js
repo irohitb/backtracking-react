@@ -25,5 +25,5 @@ class Counter extends React.Component {
     }
 }
 
-const counter = React.createElement(Counter, null, null);
-ReactDOM.render(counter, document.getElementById('root')); 
+const counter = React.createElement(Counter, null, null)
+ReactDOM.render(counter, document.getElementById('root'))

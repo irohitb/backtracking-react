@@ -26,7 +26,7 @@
         // the children here are going to be return of those nested create element 
         children.forEach(child => appendChildren(anElement, child))
         if (props) appendProp(anElement, props)
-        return anElement
+        return anElement // <h1> Something </h1> typeof this is object
     }
 
     function appendProp (element, props) {
@@ -54,6 +54,7 @@
     function HandleClass (classComponent, props, children) {
         const reactElement = new classComponent(props)
         // if it is a class we are setting the type of the render element to class
+        // storing these value in global variable so that whenever state changes we can re render
         reactElement.type = REACT_CLASS 
         reactElement.children = children
         return reactElement
@@ -67,6 +68,7 @@
         setState(state) {
             // merging new state and old state
             this.state = {...this.state, ...state}
+            // whenever state changes re-render the application
             reRender()
         }
     }
@@ -89,6 +91,7 @@
         // ReactDOM.render takes two arguments, component to render and position of the component where it should be rendered
         render: (el, domEl) => {
             // domel is the main document.getElementById('root')
+            // Pressuming element passed is only class and have render method
             rootDOMElement = domEl
             rootReactElement = el
             domEl.appendChild(el.render())
