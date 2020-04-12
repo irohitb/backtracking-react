@@ -1,24 +1,29 @@
-const hello = ({name}) => {
-    return React.createElement('h2', null, `${name}`)
-}
-
-class Hello extends React.Component {
+class Counter extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            value: 0
+        }
     }
+
+    onPlusClick () {
+        this.setState({value: this.state.value + 1})
+    }
+
+    onMinusClick () {
+        this.setState({value: this.state.value - 1})
+    }
+
+
     render () {
-        return React.createElement('button', {onClick: this.props.onClick}, `${this.props.name}`)
+        return React.createElement('div', null, 
+        React.createElement('h1', null, 'This is famour foo counter app'),
+        React.createElement('h1', null, `Counter Value: ${this.state.value}`),
+        React.createElement('button', {onClick: this.onPlusClick.bind(this)}, '+'), //TODO: What does .bind here mean
+        React.createElement('button', {onClick: this.onMinusClick.bind(this)}, '-')  //TODO: What does .bind here mean
+        )
     }
 }
 
-const helloWorld = React.createElement(Hello, {name: 'Rohit Class', onClick: () => alert('Attribute on click')}, null);
-const helloWorld2 = React.createElement(hello, {name: 'Rohit Function'}, null);
-
-const parent = React.createElement('div', null, 
-    helloWorld,
-    helloWorld2
-)
-ReactDOM.render(parent, document.getElementById('root'));
-
-
-// 
+const counter = React.createElement(Counter, null, null);
+ReactDOM.render(counter, document.getElementById('root')); 
