@@ -25,5 +25,16 @@ class Counter extends React.Component {
     }
 }
 
-const counter = React.createElement(Counter, null, null)
+// Route Class with two counters 
+
+class Root extends React.Component {
+    render() {
+        return React.createElement('div', null, 
+        React.createElement(Counter, null, null),
+        React.createElement(Counter, null, null))
+    }
+}
+
+
+const counter = React.createElement(Root, null, null)
 ReactDOM.render(counter, document.getElementById('root'))

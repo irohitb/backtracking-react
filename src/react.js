@@ -3,7 +3,9 @@
 (() => {
     let rootDOMElement , rootReactElement;
     const REACT_CLASS = 'REACT_CLASS' // Special type of React class we are making
-
+    // Creating Cache to remember classes and it's state
+    const classMap = {}
+    let classCounter = 0; // For some reason, we are using this as a key right now
     function elementHandler (el, props, children) {
         // checking if element is class 
             if (isClass(el)) {
@@ -52,11 +54,17 @@
     }
 
     function HandleClass (classComponent, props, children) {
+        // Creating classes memory.  this 
+        classCounter++
+        if (classMap[classCounter]) {
+            return classMap[classCounter]
+        }
         const reactElement = new classComponent(props)
         // if it is a class we are setting the type of the render element to class
         // storing these value in global variable so that whenever state changes we can re render
         reactElement.type = REACT_CLASS 
         reactElement.children = children
+        classMap[classCounter] = reactElement
         return reactElement
     }
 
@@ -77,6 +85,8 @@
         while(rootDOMElement.hasChildNodes()) {
             rootDOMElement.removeChild(rootDOMElement.lastChild)
         }
+        // We are keeping the counter to 1 because we are only going to render the root once
+        classCounter = 1; 
         ReactDOM.render(rootReactElement, rootDOMElement)
     }
     
